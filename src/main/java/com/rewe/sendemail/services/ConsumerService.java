@@ -28,7 +28,7 @@ public class ConsumerService {
 
     @KafkaListener(topics = "${kafka.topics.data}")
     public void sendConfirmationEmails(ConsumerRecord<?, ?> commandsRecord) throws MessagingException, IOException {
-        log.log(Level.INFO, () -> String.format("sendConfirmationEmails() » Topic: %s", commandsRecord.topic()));
+        log.info(String.format("sendConfirmationEmails() -> Topic: %s", commandsRecord.topic()));
         JsonElement object = new Gson().fromJson(commandsRecord.value().toString(), JsonObject.class);
         var subject = object.getAsJsonObject().get("subject").getAsString();
         var to = object.getAsJsonObject().get("email").getAsString();

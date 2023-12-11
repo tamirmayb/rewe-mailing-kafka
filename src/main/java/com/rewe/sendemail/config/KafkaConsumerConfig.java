@@ -65,17 +65,17 @@ public class KafkaConsumerConfig {
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConcurrency(5);
-        factory.setErrorHandler(((thrownException, data) -> log.log(Level.INFO, () -> "Kafka -> Exception in consumerConfig is: " + thrownException.getMessage() + " data: " + data)));
+        factory.setErrorHandler(((thrownException, data) -> log.info("Kafka -> Exception in consumerConfig is: " + thrownException.getMessage() + " data: " + data)));
         factory.setMessageConverter(new StringJsonMessageConverter());
         factory.setRetryTemplate(retryTemplate());
         factory.setRecoveryCallback(retryContext -> {
-            log.log(Level.SEVERE, () -> "kafkaListenerContainerFactory Error -> " + retryContext.getLastThrowable().getCause());
+            log.warning("kafkaListenerContainerFactory Error -> " + retryContext.getLastThrowable().getCause());
             // Envio al topic error
-            log.log(Level.INFO, () -> "Inside the recoverable logic");
+            log.info("Inside the recoverable logic");
             Arrays.asList(retryContext.attributeNames())
                     .forEach(attributeName -> {
-                        log.log(Level.INFO, () -> "Attribute name is: " + attributeName);
-                        log.log(Level.INFO, () -> "Attribute Value is: " + retryContext.getAttribute(attributeName));
+                        log.info("Attribute name is: " + attributeName);
+                        log.info("Attribute Value is: " + retryContext.getAttribute(attributeName));
                     });
             ConsumerRecord<?, ?> consumerRecord = (ConsumerRecord<?, ?>) retryContext.getAttribute("record");
             String errorTopic = Objects.requireNonNull(consumerRecord).topic().replace("-retry", "-error");
