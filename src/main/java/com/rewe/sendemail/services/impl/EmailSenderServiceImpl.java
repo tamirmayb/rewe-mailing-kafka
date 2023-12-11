@@ -45,7 +45,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     }
 
     @Override
-    public void sendConfirmationEmail(Email email) throws MessagingException, IOException {
+    public void sendConfirmationEmail(Email email) throws MessagingException {
         log.info(String.format("sendConfirmationEmail (%s)", email.getTo()));
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message,
