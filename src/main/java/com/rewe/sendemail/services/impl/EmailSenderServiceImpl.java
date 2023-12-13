@@ -1,11 +1,9 @@
 package com.rewe.sendemail.services.impl;
 
-import com.rewe.sendemail.services.EmailSenderService;
 import com.rewe.sendemail.models.Email;
-import org.apache.logging.log4j.Level;
+import com.rewe.sendemail.services.EmailSenderService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,7 +13,6 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 @Service
