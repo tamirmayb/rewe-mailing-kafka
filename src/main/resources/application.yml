@@ -1,5 +1,5 @@
 server:
-  port: 7500
+  port: 8080
 spring:
   mail:
     host: host.io
@@ -38,4 +38,4 @@ kafka:
   mechanism: PLAIN
   protocol: SASL_PLAINTEXT
   topics:
-    data: send.email
+    data: send_email
